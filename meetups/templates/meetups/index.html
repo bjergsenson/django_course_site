@@ -1,27 +1,43 @@
+{% extends 'meetups/base/base.html' %}
+
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Meetups</title>
-    <link rel="stylesheet" href="{% static 'meetups/styles/base.css' %}">
-</head>
+{% block title %}All Meetups{% endblock %}
 
-<body>
-    <h1>All Meetups</h1>
-    <p>Hello World!</p>
+{% block site_css %}
+<link rel="stylesheet" href="{% static 'meetups/styles/all-meetups.css' %}">
+{% endblock %}
 
-    {% if show_meetups %}
+{% block main_heading %}
+We got great meetups coming up
+{% endblock %}
 
-    {% for meetup_item in meetups %}
-    <p>{{ meetup_item.title }}</p>
-    {% endfor %}
+{% block header_content %}
+<p>Find the one that best suits your needs!</p>
+{% endblock %}
 
-    {% else %}
-    <p>No meetups found</p>
-    {% endif %}
-</body>
-
-</html>
+{% block body %}
+<section>
+    <h2>Upcoming Meetups</h2>
+    <ol>
+        {% for meetup_item in meetups %}
+        <li class="meetup-item">
+            <article>
+                <div class="meetup-summary">
+                    <div class="meetup-image">
+                        <img src="" alt="a-meetup-image">
+                    </div>
+                    <div class="meetup-details">
+                        <h3>{{meetup_item.title}}</h3>
+                        <address>{{meetup_item.location}}</address>
+                    </div>
+                </div>
+                <div class="meetup-actions">
+                    <a href="{% url 'meetup-detail' meetup_item.slug %}" class="btn">More Details</a>
+                </div>
+            </article>
+        </li>
+        {% endfor %}
+    </ol>
+</section>
+{% endblock %}
